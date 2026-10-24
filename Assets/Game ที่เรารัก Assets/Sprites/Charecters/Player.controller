@@ -158,7 +158,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: A_futuristic_sci-fi_spac-empty_hands_unarmed_7
+  m_Name: Player
   serializedVersion: 6
   m_AnimatorParameters:
   - m_Name: MoveX

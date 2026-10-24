@@ -72,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player Died!");
         
-        // 2. สั่งให้เด้งกลับไปหน้า UI เมนูหลัก (เปลี่ยนคำว่า "MainMenu" เป็นชื่อ Scene หน้าเมนูของเธอได้เลยนะ)
-        SceneManager.LoadScene("๊Ui"); 
+        // แก้ชื่อตรงนี้ให้ตรงกับชื่อไฟล์ Scene หน้า UI จริงๆ ในเครื่อง (ตัวพิมพ์เล็ก-ใหญ่ต้องตรงเป๊ะ)
+        SceneManager.LoadScene("UI"); 
     }
 }
