@@ -1,4 +1,4 @@
-using System.Collections; // ต้องมีบรรทัดนี้นะถึงจะใช้ระบบนับเวลาได้!
+using System.Collections; 
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -11,10 +11,14 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Weapon System")]
     public Weapon[] weapons; 
-    public int defaultWeaponIndex = 0; // ปืนหลัก (ปืนตอนเริ่มเกม)
-    
+    public int defaultWeaponIndex = 0; 
     private Weapon currentWeapon; 
-    private Coroutine weaponTimer; // ตัวแปรเก็บเวลาปืนชั่วคราว
+    private Coroutine weaponTimer; 
+
+    // 👇 เพิ่มระบบควบคุม FirePoint ตรงนี้!
+    [Header("FirePoint Control")]
+    public Transform mainFirePoint; // ลาก FirePoint มาใส่ช่องนี้
+    public float firePointDistance = 1f; // ระยะห่างจากตัวละคร (ปรับได้นะ!)
 
     void Start()
     {
@@ -33,7 +37,15 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetFloat("MoveX", movement.x);
             anim.SetFloat("MoveY", movement.y);
-            facingDirection = movement;
+            
+            // ใช้ .normalized เพื่อให้ทิศทางเฉียงไม่ยาวเกินไป
+            facingDirection = movement.normalized; 
+            
+            // 👇 สั่งให้ FirePoint ขยับไปตามทิศที่หันหน้า!
+            if (mainFirePoint != null)
+            {
+                mainFirePoint.localPosition = facingDirection * firePointDistance;
+            }
         }
         
         anim.SetFloat("Speed", movement.sqrMagnitude);
@@ -62,20 +74,38 @@ public class PlayerMovement : MonoBehaviour
         currentWeapon.gameObject.SetActive(true);
     }
 
-    // ฟังก์ชันนี้โดนเรียกตอนเก็บไอเทมปืนได้!
     public void PickupTempWeapon(int tempWeaponIndex, float duration)
     {
-        EquipWeapon(tempWeaponIndex); // เปลี่ยนไปถือปืนที่เก็บได้
-        
-        if (weaponTimer != null) StopCoroutine(weaponTimer); // รีเซ็ตเวลาถ้าเก็บซ้ำ
-        
-        weaponTimer = StartCoroutine(RevertWeaponAfterTime(duration)); // เริ่มนับเวลาถอยหลัง!
+        EquipWeapon(tempWeaponIndex); 
+        if (weaponTimer != null) StopCoroutine(weaponTimer); 
+        weaponTimer = StartCoroutine(RevertWeaponAfterTime(duration)); 
     }
 
-    // ระบบนับเวลาถอยหลัง
     IEnumerator RevertWeaponAfterTime(float time)
     {
-        yield return new WaitForSeconds(time); // รอจนกว่าเวลาจะหมด
-        EquipWeapon(defaultWeaponIndex); // สลับกลับมาปืนหลัก!
+        yield return new WaitForSeconds(time); 
+        EquipWeapon(defaultWeaponIndex); 
+    }
+
+    public void UpgradeMoveSpeed(float amount)
+    {
+        moveSpeed += amount;
+    }
+
+    public void UpgradeAllWeaponsDamage(int amount)
+    {
+        foreach (Weapon w in weapons)
+        {
+            w.bonusDamage += amount;
+        }
+    }
+
+    public void UpgradeAllWeaponsFireRate(float amount)
+    {
+        foreach (Weapon w in weapons)
+        {
+            w.fireRate -= amount;
+            if (w.fireRate < 0.1f) w.fireRate = 0.1f; 
+        }
     }
 }

@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -180,5 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adea09592165f3348bd257c3f1500a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  speed: 50
-  damage: 1
+  speed: 100
+  damage: 5
+  hitEffectPrefab: {fileID: 8183170420608209380, guid: 8d38e3011ba98b042974261d779f4cbe, type: 3}
+  isAOE: 0
+  aoeRadius: 2

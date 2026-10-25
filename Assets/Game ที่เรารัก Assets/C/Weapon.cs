@@ -7,10 +7,12 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;     // จุดปล่อยกระสุน
     public float fireRate = 0.5f;   // ความรัว
     public float detectRange = 10f; // ระยะเรดาร์
+    
+    // 👇 ฮานะเพิ่มตัวแปรนี้เข้ามา เพื่อรับพลังโจมตีเสริมจากไอเทม!
+    public int bonusDamage = 0;     
 
     private float nextFireTime = 0f;
 
-    // ฟังก์ชันนี้จะถูก Player สั่งให้ทำงาน
     public void TryShoot(Vector2 defaultDirection)
     {
         if (Time.time >= nextFireTime)
@@ -30,7 +32,6 @@ public class Weapon : MonoBehaviour
 
         foreach (EnemyHealth enemy in enemies)
         {
-            // วัดระยะจากปลายกระบอกปืนไปหาศัตรู
             float distance = Vector2.Distance(firePoint.position, enemy.transform.position);
             
             if (distance < closestDistance && distance <= detectRange)
@@ -46,6 +47,10 @@ public class Weapon : MonoBehaviour
         }
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().Setup(shootDirection);
+        
+        // 👇 ฮานะแก้ตรงนี้ เพื่อให้มันบวกโบนัสดาเมจใส่เข้าไปในกระสุนด้วย!
+        Bullet b = bullet.GetComponent<Bullet>();
+        b.Setup(shootDirection);
+        b.damage += bonusDamage; 
     }
 }
