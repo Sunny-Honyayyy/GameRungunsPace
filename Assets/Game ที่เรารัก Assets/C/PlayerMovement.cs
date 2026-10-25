@@ -1,3 +1,4 @@
+using System.Collections; // ต้องมีบรรทัดนี้นะถึงจะใช้ระบบนับเวลาได้!
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -6,20 +7,21 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 movement;
     private Animator anim;
-
-    [Header("Shooting System")]
-    public GameObject bulletPrefab; 
-    public Transform firePoint;     
     private Vector2 facingDirection = new Vector2(0, -1); 
 
-    // เพิ่ม 2 บรรทัดนี้เข้ามาเพื่อทำระบบยิงอัตโนมัติ!
-    public float fireRate = 0.5f; // ความเร็วในการยิง (หน่วงเวลา 0.5 วินาทีต่อนัด)
-    private float nextFireTime = 0f; // ตัวเก็บเวลาว่านัดต่อไปยิงได้ตอนไหน
+    [Header("Weapon System")]
+    public Weapon[] weapons; 
+    public int defaultWeaponIndex = 0; // ปืนหลัก (ปืนตอนเริ่มเกม)
+    
+    private Weapon currentWeapon; 
+    private Coroutine weaponTimer; // ตัวแปรเก็บเวลาปืนชั่วคราว
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        
+        EquipWeapon(defaultWeaponIndex); 
     }
 
     void Update()
@@ -36,11 +38,9 @@ public class PlayerMovement : MonoBehaviour
         
         anim.SetFloat("Speed", movement.sqrMagnitude);
 
-        // ระบบยิงอัตโนมัติ! (เปลี่ยนจากเช็คปุ่มกด มาเช็คเวลาแทน)
-        if (Time.time >= nextFireTime)
+        if (currentWeapon != null)
         {
-            Shoot();
-            nextFireTime = Time.time + fireRate; // ตั้งเวลาสำหรับการยิงนัดถัดไป!
+            currentWeapon.TryShoot(facingDirection);
         }
     }
 
@@ -49,9 +49,33 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = movement.normalized * moveSpeed;
     }
 
-    void Shoot()
+    public void EquipWeapon(int weaponIndex)
     {
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-        bullet.GetComponent<Bullet>().Setup(facingDirection);
+        if (weaponIndex < 0 || weaponIndex >= weapons.Length) return;
+
+        foreach (Weapon w in weapons)
+        {
+            w.gameObject.SetActive(false);
+        }
+
+        currentWeapon = weapons[weaponIndex];
+        currentWeapon.gameObject.SetActive(true);
+    }
+
+    // ฟังก์ชันนี้โดนเรียกตอนเก็บไอเทมปืนได้!
+    public void PickupTempWeapon(int tempWeaponIndex, float duration)
+    {
+        EquipWeapon(tempWeaponIndex); // เปลี่ยนไปถือปืนที่เก็บได้
+        
+        if (weaponTimer != null) StopCoroutine(weaponTimer); // รีเซ็ตเวลาถ้าเก็บซ้ำ
+        
+        weaponTimer = StartCoroutine(RevertWeaponAfterTime(duration)); // เริ่มนับเวลาถอยหลัง!
+    }
+
+    // ระบบนับเวลาถอยหลัง
+    IEnumerator RevertWeaponAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time); // รอจนกว่าเวลาจะหมด
+        EquipWeapon(defaultWeaponIndex); // สลับกลับมาปืนหลัก!
     }
 }
