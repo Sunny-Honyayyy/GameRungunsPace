@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8939569649287549563}
   - component: {fileID: 2021785116708265068}
   - component: {fileID: 884650040326411647}
+  - component: {fileID: 3775440326632866806}
   - component: {fileID: 2756843030017678521}
   m_Layer: 0
   m_Name: Speed move
@@ -140,6 +141,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.1, y: 2.1}
   m_EdgeRadius: 0
+--- !u!114 &3775440326632866806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510657206549984164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695c7067f5857c042a1e0b955a74cd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemMagnet
+  magnetSpeed: 4
+  magnetRange: 5
 --- !u!114 &2756843030017678521
 MonoBehaviour:
   m_ObjectHideFlags: 0

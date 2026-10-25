@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5542829226099065312}
   - component: {fileID: 5341910151169191119}
   - component: {fileID: 8831806557168101686}
+  - component: {fileID: -4753890495863589363}
   m_Layer: 0
   m_Name: God Gun
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.3645177, y: 97.573235, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   weaponIndexToGive: 5
-  duration: 15
+  duration: 20
 --- !u!61 &8831806557168101686
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -154,3 +155,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.46, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &-4753890495863589363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2060309495529770089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695c7067f5857c042a1e0b955a74cd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemMagnet
+  magnetSpeed: 4
+  magnetRange: 5

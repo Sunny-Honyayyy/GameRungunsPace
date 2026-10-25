@@ -181,4 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 15
-  damage: 3
+  damage: 2
+  hitEffectPrefab: {fileID: 0}
+  isAOE: 0
+  aoeRadius: 2

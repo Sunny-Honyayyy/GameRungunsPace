@@ -126,7 +126,7 @@ MonoBehaviour:
   - {fileID: 4081645489280094287, guid: 2522fbd6d6b96f24dbac20b60f599d40, type: 3}
   - {fileID: 855927394414812471, guid: 1b77776c0bbfcff4a9f8539691b9f3d7, type: 3}
   - {fileID: 3510657206549984164, guid: b8d44ba0c8c75fc4c849afd4ed84e2c0, type: 3}
-  dropChance: 10
+  dropChance: 25
 --- !u!61 &2901441889372654748
 BoxCollider2D:
   m_ObjectHideFlags: 0

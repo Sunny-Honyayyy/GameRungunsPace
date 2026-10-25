@@ -15,7 +15,7 @@ public class BuffItem : MonoBehaviour
             {
                 // เช็คว่าไอเทมชิ้นนี้เป็นบัฟอะไร แล้วแจกพลังตามนั้น!
                 if (buffType == BuffType.Speed) 
-                    player.UpgradeMoveSpeed(1f); // เดินไวขึ้นทีละ 1
+                    player.UpgradeMoveSpeed(0.25f); // เดินไวขึ้นทีละ 0.25
                 else if (buffType == BuffType.FireRate) 
                     player.UpgradeAllWeaponsFireRate(0.05f); // ยิงรัวขึ้น 0.05 วิ
                 else if (buffType == BuffType.Damage) 

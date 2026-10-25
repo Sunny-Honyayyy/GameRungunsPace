@@ -15,10 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private Weapon currentWeapon; 
     private Coroutine weaponTimer; 
 
-    // 👇 เพิ่มระบบควบคุม FirePoint ตรงนี้!
     [Header("FirePoint Control")]
-    public Transform mainFirePoint; // ลาก FirePoint มาใส่ช่องนี้
-    public float firePointDistance = 1f; // ระยะห่างจากตัวละคร (ปรับได้นะ!)
+    public Transform mainFirePoint; 
+    public float firePointDistance = 1f; 
 
     void Start()
     {
@@ -37,11 +36,8 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetFloat("MoveX", movement.x);
             anim.SetFloat("MoveY", movement.y);
-            
-            // ใช้ .normalized เพื่อให้ทิศทางเฉียงไม่ยาวเกินไป
             facingDirection = movement.normalized; 
             
-            // 👇 สั่งให้ FirePoint ขยับไปตามทิศที่หันหน้า!
             if (mainFirePoint != null)
             {
                 mainFirePoint.localPosition = facingDirection * firePointDistance;
@@ -90,6 +86,9 @@ public class PlayerMovement : MonoBehaviour
     public void UpgradeMoveSpeed(float amount)
     {
         moveSpeed += amount;
+        
+        // 👇 ตะโกนบอก GameManager ว่าเพิ่งเก็บรองเท้ามา!
+        if (GameManager.instance != null) GameManager.instance.AddUpgrade("Speed"); 
     }
 
     public void UpgradeAllWeaponsDamage(int amount)
@@ -98,14 +97,23 @@ public class PlayerMovement : MonoBehaviour
         {
             w.bonusDamage += amount;
         }
+        
+        // 👇 ตะโกนบอก GameManager ว่าเพิ่งเก็บดาบมา!
+        if (GameManager.instance != null) GameManager.instance.AddUpgrade("Damage");
     }
 
     public void UpgradeAllWeaponsFireRate(float amount)
     {
         foreach (Weapon w in weapons)
         {
-            w.fireRate -= amount;
-            if (w.fireRate < 0.1f) w.fireRate = 0.1f; 
+            w.fireRate *= 0.9f; 
+            if (w.fireRate < 0.005f) 
+            {
+                w.fireRate = 0.005f; 
+            }
         }
+        
+        // 👇 ตะโกนบอก GameManager ว่าเพิ่งเก็บสายฟ้ามา!
+        if (GameManager.instance != null) GameManager.instance.AddUpgrade("FireRate");
     }
 }

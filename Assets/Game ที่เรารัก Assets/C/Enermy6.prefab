@@ -194,9 +194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da35bd03bf7e46447bc452126999acc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  maxHealth: 2
+  maxHealth: 1
   dropItemPrefabs:
   - {fileID: 4081645489280094287, guid: 2522fbd6d6b96f24dbac20b60f599d40, type: 3}
   - {fileID: 855927394414812471, guid: 1b77776c0bbfcff4a9f8539691b9f3d7, type: 3}
   - {fileID: 3510657206549984164, guid: b8d44ba0c8c75fc4c849afd4ed84e2c0, type: 3}
+  - {fileID: 1390265545695441636, guid: e788653acb3ea0b448da22dfd7a3e5b0, type: 3}
   dropChance: 5

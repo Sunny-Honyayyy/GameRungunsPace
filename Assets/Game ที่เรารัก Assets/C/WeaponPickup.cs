@@ -8,7 +8,7 @@ public class WeaponPickup : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // ถ้าคนที่มาชนคือ Player
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player")) 
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             if (player != null)

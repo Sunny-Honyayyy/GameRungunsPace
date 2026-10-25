@@ -6,7 +6,6 @@ public class EnemyHealth : MonoBehaviour
     private int currentHealth;
 
     [Header("Drop System")]
-    // เปลี่ยนมาใช้ [] เพื่อให้ใส่ไอเทมดรอปได้หลายๆ ชนิด!
     public GameObject[] dropItemPrefabs; 
     [Range(0, 100)] public float dropChance = 30f; 
 
@@ -27,12 +26,26 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // ถ้าโอกาสดรอปติด (เช่น สุ่มได้น้อยกว่า 30%) และมีของให้ดรอป
+        // 👇 ฮานะเพิ่มตรงนี้! เพื่อรายงาน GameManager ว่าศัตรูตายแล้วนะ!
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.EnemyDied();
+        }
+
+        // ระบบดรอปไอเทมเด้งหลุดกำแพง (เหมือนเดิมเป๊ะๆ)
         if (dropItemPrefabs.Length > 0 && Random.Range(0, 100f) <= dropChance)
         {
-            // ให้มันสุ่มเลือกไอเทม 1 ชิ้นจากลิสต์ที่เราใส่ไว้!
             int randomIndex = Random.Range(0, dropItemPrefabs.Length);
-            Instantiate(dropItemPrefabs[randomIndex], transform.position, Quaternion.identity);
+            Vector2 dropPosition = transform.position;
+
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                Vector2 direction = (playerObj.transform.position - transform.position).normalized;
+                dropPosition += direction * 1.5f; 
+            }
+
+            Instantiate(dropItemPrefabs[randomIndex], dropPosition, Quaternion.identity);
         }
         
         Destroy(gameObject); 

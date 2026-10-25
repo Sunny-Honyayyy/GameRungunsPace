@@ -82,7 +82,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7059393366267629080, guid: 6714f5e1f06db5e45ae027de133962e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adea09592165f3348bd257c3f1500a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  speed: 20
+  speed: 50
   damage: 50
   hitEffectPrefab: {fileID: 8565974879054858484, guid: e7523389762060049bb6de1fa5d67920, type: 3}
   isAOE: 1
