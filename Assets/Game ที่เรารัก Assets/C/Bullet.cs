@@ -7,9 +7,13 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
 
     [Header("Explosion & VFX")]
-    public GameObject hitEffectPrefab; // ช่องใส่เอฟเฟกต์ตอนกระสุนกระทบเป้า!
-    public bool isAOE = false;         // ติ๊กถูกถ้าอยากให้กระสุนนี้ระเบิดหมู่!
-    public float aoeRadius = 2f;       // รัศมีการระเบิด (กว้างแค่ไหน)
+    public GameObject hitEffectPrefab; 
+    public bool isAOE = false;         
+    public float aoeRadius = 2f;       
+
+    // 👇 ฮานะเพิ่มช่องใส่เสียงกระทบเป้าหมายไว้ตรงนี้นะ!
+    [Header("Audio Settings")]
+    public AudioClip hitSound; 
 
     public void Setup(Vector2 moveDirection)
     {
@@ -34,10 +38,15 @@ public class Bullet : MonoBehaviour
                 Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
             }
 
-            // 2. เช็คว่าเป็นกระสุนแบบระเบิดหมู่ (AOE) หรือเปล่า?
+            // 👇 2. สั่งให้เล่นเสียง "ฉึก!" หรือเสียงระเบิดตรงจุดที่ชนทันที!
+            if (hitSound != null)
+            {
+                AudioSource.PlayClipAtPoint(hitSound, transform.position);
+            }
+
+            // 3. เช็คว่าเป็นกระสุนแบบระเบิดหมู่ (AOE) หรือเปล่า?
             if (isAOE)
             {
-                // ค้นหาศัตรู "ทั้งหมด" ที่อยู่ในรัศมีวงกลม แล้วแจกดาเมจเรียงตัว!
                 Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, aoeRadius);
                 foreach (Collider2D col in hitObjects)
                 {
@@ -50,7 +59,6 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                // ถ้าไม่ใช่ AOE ก็ลดเลือดแค่ตัวที่โดนยิงตัวเดียว
                 enemy.TakeDamage(damage); 
             }
 
@@ -59,7 +67,6 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    // วาดเส้นวงกลมสีแดงให้ดูใน Unity จะได้กะระยะระเบิดถูก!
     void OnDrawGizmosSelected()
     {
         if (isAOE)

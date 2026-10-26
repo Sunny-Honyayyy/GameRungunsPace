@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
   weaponIndexToGive: 5
-  duration: 20
+  duration: 15
 --- !u!61 &8831806557168101686
 BoxCollider2D:
   m_ObjectHideFlags: 0

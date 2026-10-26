@@ -9,6 +9,10 @@ public class EnemyHealth : MonoBehaviour
     public GameObject[] dropItemPrefabs; 
     [Range(0, 100)] public float dropChance = 30f; 
 
+    // 👇 เพิ่มช่องใส่เสียงตอนตายตรงนี้!
+    [Header("Audio Settings")]
+    public AudioClip deathSound; 
+
     void Start()
     {
         currentHealth = maxHealth; 
@@ -26,13 +30,17 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
-        // 👇 ฮานะเพิ่มตรงนี้! เพื่อรายงาน GameManager ว่าศัตรูตายแล้วนะ!
         if (GameManager.instance != null)
         {
             GameManager.instance.EnemyDied();
         }
 
-        // ระบบดรอปไอเทมเด้งหลุดกำแพง (เหมือนเดิมเป๊ะๆ)
+        // 👇 สั่งให้เล่นเสียงตรงจุดที่ตายก่อนที่ตัวมันจะหายไป!
+        if (deathSound != null)
+        {
+            AudioSource.PlayClipAtPoint(deathSound, transform.position);
+        }
+
         if (dropItemPrefabs.Length > 0 && Random.Range(0, 100f) <= dropChance)
         {
             int randomIndex = Random.Range(0, dropItemPrefabs.Length);

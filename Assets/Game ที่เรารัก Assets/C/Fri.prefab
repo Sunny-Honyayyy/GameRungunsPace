@@ -109,10 +109,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 50
-  damage: 10
+  damage: 1
   hitEffectPrefab: {fileID: 0}
   isAOE: 1
   aoeRadius: 5
+  hitSound: {fileID: 8300000, guid: 9cd1a0f7c84e5f149a45d833ca71f193, type: 3}
 --- !u!50 &3561295645922345151
 Rigidbody2D:
   serializedVersion: 5

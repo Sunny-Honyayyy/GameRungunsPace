@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -126,7 +126,9 @@ MonoBehaviour:
   - {fileID: 4081645489280094287, guid: 2522fbd6d6b96f24dbac20b60f599d40, type: 3}
   - {fileID: 855927394414812471, guid: 1b77776c0bbfcff4a9f8539691b9f3d7, type: 3}
   - {fileID: 3510657206549984164, guid: b8d44ba0c8c75fc4c849afd4ed84e2c0, type: 3}
-  dropChance: 25
+  - {fileID: 1536898710741869879, guid: 93cc83f9a75e621459e65a9853922e9f, type: 3}
+  dropChance: 40
+  deathSound: {fileID: 8300000, guid: a2a86d9d1e073ee40be8c92d1e2f572d, type: 3}
 --- !u!61 &2901441889372654748
 BoxCollider2D:
   m_ObjectHideFlags: 0

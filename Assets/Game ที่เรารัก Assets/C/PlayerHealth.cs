@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement; // 1. เพิ่มบรรทัดนี้เพื่อให้เรียกใช้ SceneManager ได้
+// ฮานะเอา SceneManager ออกไปแล้วนะ! เพราะปุ่ม OK บนหน้าจอแพ้จะเป็นคนจัดการย้ายฉากให้เอง!
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,8 +8,7 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public Image[] heartImages; 
 
-    // ตัวแปรสำหรับหน่วงเวลาโดนดาเมจซ้ำ
-    public float invincibilityTime = 1.5f; // เวลาอมตะหรือเวลารอให้โดนซ้ำได้ (วินาที)
+    public float invincibilityTime = 1.5f; 
     private float invincibilityCounter;
 
     void Start()
@@ -20,23 +19,20 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        // นับเวลาถอยหลังลดคูลดาวน์ดาเมจ
         if (invincibilityCounter > 0)
         {
             invincibilityCounter -= Time.deltaTime;
         }
     }
 
-    // ใช้ OnTriggerStay2D ตามที่เราเซ็ตค่า Trigger ไว้
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // ถ้าหมดเวลาคูลดาวน์แล้ว ถึงจะลดเลือดได้อีก
             if (invincibilityCounter <= 0)
             {
                 TakeDamage(1);
-                invincibilityCounter = invincibilityTime; // รีเซ็ตเวลาคูลดาวน์ใหม่
+                invincibilityCounter = invincibilityTime; 
             }
         }
     }
@@ -70,9 +66,15 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("Player Died!");
+        Debug.Log("โดนมอนสเตอร์งับตายแล้วตาบ๊อง!");
         
-        // แก้ชื่อตรงนี้ให้ตรงกับชื่อไฟล์ Scene หน้า UI จริงๆ ในเครื่อง (ตัวพิมพ์เล็ก-ใหญ่ต้องตรงเป๊ะ)
-        SceneManager.LoadScene("UI"); 
+        // 👇 ฮานะแก้ตรงนี้แหละ! สั่งให้ GameManager โชว์ป้าย Game Over ขึ้นมา!
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ShowDefeatScreen();
+        }
+
+        // ซ่อนศพตัวละครทิ้งไปซะ จะได้ไม่โดนบอสรุมทึ้งตอนจอค้าง!
+        gameObject.SetActive(false); 
     }
 }

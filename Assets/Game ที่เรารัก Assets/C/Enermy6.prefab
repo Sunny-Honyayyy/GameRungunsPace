@@ -200,4 +200,5 @@ MonoBehaviour:
   - {fileID: 855927394414812471, guid: 1b77776c0bbfcff4a9f8539691b9f3d7, type: 3}
   - {fileID: 3510657206549984164, guid: b8d44ba0c8c75fc4c849afd4ed84e2c0, type: 3}
   - {fileID: 1390265545695441636, guid: e788653acb3ea0b448da22dfd7a3e5b0, type: 3}
-  dropChance: 5
+  dropChance: 15
+  deathSound: {fileID: 8300000, guid: 597316520d721344392ec5c0b9925ab3, type: 3}

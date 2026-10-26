@@ -8,8 +8,11 @@ public class Weapon : MonoBehaviour
     public float fireRate = 0.5f;   // ความรัว
     public float detectRange = 10f; // ระยะเรดาร์
     
-    // 👇 ฮานะเพิ่มตัวแปรนี้เข้ามา เพื่อรับพลังโจมตีเสริมจากไอเทม!
     public int bonusDamage = 0;     
+
+    // 👇 ฮานะเพิ่มช่องใส่เสียงปืนตรงนี้!
+    [Header("Audio Settings")]
+    public AudioClip shootSound; 
 
     private float nextFireTime = 0f;
 
@@ -48,7 +51,12 @@ public class Weapon : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
         
-        // 👇 ฮานะแก้ตรงนี้ เพื่อให้มันบวกโบนัสดาเมจใส่เข้าไปในกระสุนด้วย!
+        // 👇 สั่งให้เล่นเสียงปืนตรงปลายกระบอกปืน! ปังๆๆ!
+        if (shootSound != null)
+        {
+            AudioSource.PlayClipAtPoint(shootSound, firePoint.position);
+        }
+        
         Bullet b = bullet.GetComponent<Bullet>();
         b.Setup(shootDirection);
         b.damage += bonusDamage; 

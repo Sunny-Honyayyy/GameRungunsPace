@@ -197,4 +197,5 @@ MonoBehaviour:
   maxHealth: 50
   dropItemPrefabs:
   - {fileID: 6375035961990671449, guid: 0a42d52e3bda8af428bf1ac79ef36b46, type: 3}
-  dropChance: 7.5
+  dropChance: 15
+  deathSound: {fileID: 8300000, guid: 597316520d721344392ec5c0b9925ab3, type: 3}

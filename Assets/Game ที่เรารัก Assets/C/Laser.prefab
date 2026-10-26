@@ -181,7 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   speed: 100
-  damage: 2
+  damage: 1
   hitEffectPrefab: {fileID: 8183170420608209380, guid: 8d38e3011ba98b042974261d779f4cbe, type: 3}
   isAOE: 0
   aoeRadius: 2
+  hitSound: {fileID: 8300000, guid: 9cd1a0f7c84e5f149a45d833ca71f193, type: 3}

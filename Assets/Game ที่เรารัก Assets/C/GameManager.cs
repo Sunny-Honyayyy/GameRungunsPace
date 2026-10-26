@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro; 
-using UnityEngine.SceneManagement; // 👇 ต้องมีบรรทัดนี้! ถึงจะสั่งเปลี่ยนฉากได้!
+using UnityEngine.SceneManagement; 
 
 public class GameManager : MonoBehaviour
 {
@@ -13,9 +13,10 @@ public class GameManager : MonoBehaviour
     [Header("Upgrade UI")]
     public TextMeshProUGUI upgradeText; 
 
-    // 👇 ช่องสำหรับใส่หน้าจอตอนชนะ!
-    [Header("Victory Screen")]
-    public GameObject victoryPanel; 
+    // 👇 เปลี่ยนมาใช้แบบรวมชุด (Panel เดียวจบ!)
+    [Header("End Game Set")]
+    public GameObject endGamePanel; // ลาก Panel รวมมาใส่ช่องนี้
+    public TextMeshProUGUI endGameTitleText; // ลากตัวหนังสือหัวข้อมาใส่
 
     [HideInInspector] 
     public int enemiesKilled = 0; 
@@ -31,10 +32,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // สั่งซ่อนหน้าจอชนะตอนเริ่มเกมไว้ก่อน
-        if (victoryPanel != null) victoryPanel.SetActive(false);
+        // ซ่อนหน้าจอจบเกมตอนเริ่มเกม
+        if (endGamePanel != null) endGamePanel.SetActive(false);
         
-        // คืนค่าเวลาให้เดินปกติ (เผื่อเล่นตาใหม่แล้วเวลาค้าง)
         Time.timeScale = 1f;
 
         UpdateUI();
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         if (enemiesToKill <= 0) 
         {
             enemiesToKill = 0;
-            ShowVictoryScreen(); // 👇 เรียกฟังก์ชันโชว์หน้าจอชนะ!
+            ShowVictoryScreen(); 
         }
         UpdateUI();
     }
@@ -75,30 +75,47 @@ public class GameManager : MonoBehaviour
     {
         if (upgradeText != null)
         {
-            upgradeText.text = "Upgrades:\n" +
+            upgradeText.text = "Upgrades\n" +
                                "Speed: +" + speedBuffCount + "\n" +
                                "Damage: +" + damageBuffCount + "\n" +
                                "Fire Rate: +" + fireRateBuffCount;
         }
     }
 
-    // 👇 ==========================================
-    // 👇 ระบบฉากจบของนาย อยู่ตรงนี้แหละ!
-    // 👇 ==========================================
-
+    // 👇 โชว์หน้าจอตอนชนะ!
     void ShowVictoryScreen()
     {
-        if (victoryPanel != null)
+        if (endGamePanel != null)
         {
-            victoryPanel.SetActive(true); // เปิดหน้าต่างโชว์คำว่าชนะ!
-            Time.timeScale = 0f; // หยุดเวลาในเกม! ทุกอย่างจะหยุดนิ่ง
+            endGamePanel.SetActive(true);
+            if (endGameTitleText != null) 
+            {
+                endGameTitleText.text = "VICTORY!";
+                endGameTitleText.color = Color.yellow; // เปลี่ยนอักษรเป็นสีทอง!
+            }
         }
+        Time.timeScale = 0f; 
     }
 
-    // ฟังก์ชันนี้เอาไว้ให้ "ปุ่ม" ในหน้าจอชนะกดเรียกใช้!
+    // 👇 โชว์หน้าจอตอนแพ้!
+    public void ShowDefeatScreen()
+    {
+        if (endGamePanel != null)
+        {
+            endGamePanel.SetActive(true);
+            if (endGameTitleText != null) 
+            {
+                endGameTitleText.text = "GAME OVER!";
+                endGameTitleText.color = Color.red; // เปลี่ยนอักษรเป็นสีแดง!
+            }
+        }
+        Time.timeScale = 0f; 
+    }
+
+    // ฟังก์ชันสำหรับปุ่ม OK ตัวเดียวจบ!
     public void GoToUIScene()
     {
-        Time.timeScale = 1f; // ต้องคืนค่าเวลาก่อนย้ายฉาก ไม่งั้นฉากหน้าจะค้าง!
-        SceneManager.LoadScene("UI"); // โหลดฉากชื่อ "UI" (ชื่อฉากต้องตรงเป๊ะๆ นะ!)
+        Time.timeScale = 1f; 
+        SceneManager.LoadScene("UI"); 
     }
 }
