@@ -15734,7 +15734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &77189777
 Transform:
   m_ObjectHideFlags: 0
@@ -68950,7 +68950,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &341744917
 Transform:
   m_ObjectHideFlags: 0
@@ -267999,6 +267999,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1371153209}
   - component: {fileID: 1371153210}
+  - component: {fileID: 1371153211}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -268036,6 +268037,18 @@ MonoBehaviour:
   level1: {fileID: 946433936}
   level2: {fileID: 341744916}
   level3: {fileID: 77189776}
+--- !u!114 &1371153211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371153208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e8a6e5476558ce459ea0408a2083375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EscManager
 --- !u!1 &1372044943
 GameObject:
   m_ObjectHideFlags: 0
