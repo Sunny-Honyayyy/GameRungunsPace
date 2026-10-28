@@ -3,4 +3,4 @@
 
 Code --> Dowlorad ZIP 
 
-แตกไฟล์ เข้าไฟล์ Gane --> My game gunner
+แตกไฟล์ เข้าไฟล์ Game --> My game gunner
